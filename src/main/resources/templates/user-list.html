@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <meta charset="UTF-8">
+    <title>Users</title>
+<!--    <style>-->
+<!--        table{-->
+<!--            width: 50%;-->
+<!--            background: black;-->
+<!--            color: #0c0c0c;-->
+<!--            border-spacing: 1px;-->
+<!--        }-->
+<!--        td, th {-->
+<!--            background: #f6f3f3;-->
+<!--            padding: 5px;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table boarder="3">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td><!--/*@thymesVar id="id" type=""*/-->
+                <a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/user-create">Create user</a></p>
+</div>
+</body>
+</html>
